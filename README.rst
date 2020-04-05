@@ -6,12 +6,11 @@ Just follow the instructions below to setup your script.
 Installing
 ----------
 First of all make sure you have downloaded "KASA" on your mobile device and the plug is connected with your network.
-|br|Then insert your your device ip in "config.ini". Your default port should be 9999
-|br|Finally, you should be able to send commands with kasa.py
+Write your device ip in "config.ini", your default port should be 9999 and then you should be ready to go
 
 .. code-block:: text
 
-chmod u+x main.py if you are missing permissions running kasa.py.
+if you are missing permissions running kasa.py dont forget to chmod u+x main.py 
 
 A Simple Example
 ----------------
