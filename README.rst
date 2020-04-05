@@ -10,8 +10,7 @@ Write your device ip in "config.ini", your default port should be 9999 and then 
 
 
 
-if you are missing permissions running kasa.py dont forget to 
-.. code-block:: text
+if you are missing permissions running kasa.py dont forget to:
 <chmod u+x main.py> 
 
 A Simple Example
