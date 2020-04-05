@@ -12,7 +12,9 @@ chmod u+x main.py if permissions are missing
 for example:
 .. code-block:: text
     ./kasa.py -t <ip> [-c <cmd> || -j <json>]
+
     ./mykasa.py -t 192.168.1.177 -j {"system":{"set_relay_state":{"state":1}}}
+
     ./mykasa.py -t 192.168.1.177 -c 'on'
 
 HAVE FUN
