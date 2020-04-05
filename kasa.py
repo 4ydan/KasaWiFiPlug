@@ -1,5 +1,9 @@
 import socket
 import argparse
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 # Predefined Commands
 command = {'info': '{"system":{"get_sysinfo":{}}}',
@@ -11,15 +15,14 @@ command = {'info': '{"system":{"get_sysinfo":{}}}',
            }
 
 parser = argparse.ArgumentParser(description="TP-Link Wi-Fi Smart Plug Client v")
-parser.add_argument("-t", "--target", metavar="<hostname>", required=True, help="Target hostname or IP address")
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument("-c", "--command", metavar="<command>",
                    help="Preset command to send. Choices are: " + ", ".join(command), choices=command)
 group.add_argument("-j", "--json", metavar="<JSON string>", help="Full JSON string of command to send")
 args = parser.parse_args()
 
-ip = args.target
-port = 9999
+ip = config['DEFAULT']['ip']
+port = config['DEFAULT']['port']
 
 if args.command is None:
     command = args.json
