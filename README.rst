@@ -5,9 +5,12 @@ Just follow the instructions below to setup your script.
 
 Installing
 ----------
-First of all make sure you download KASA for your Mobile Device and connect the device to your Network
-Once you have added your device to your network open the script folder and start typing commands.
-chmod u+x main.py if permissions are missing
+First of all make sure you have downloaded "KASA" on your mobile device and the plug is connected with your network.
+If so, open the script folder and start sending commands.
+
+.. code-block:: text
+
+chmod u+x main.py if you are missing permissions.
 
 A Simple Example
 ----------------
