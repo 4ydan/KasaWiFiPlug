@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import socket
 import argparse
-import configparser
 
 IP = "192.168.1.177"
 PORT = 9999
