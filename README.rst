@@ -10,22 +10,21 @@ Installing
 3. Import kasa to your project.
 4. Create an Instance of the Class Plug and start sending commands
 
-A Available Commands
+Available Commands
 ----------------
 info, on, off, energy, time
-energy command is only available on Model HS110!
+|energy command is only available on Model HS110!
 
 
 A Simple Example
 ----------------
 
 .. code-block:: text
-plug1 = PLug()
-plug1.command(on)
-plug1.command(off)
-plug1.command(info)
-etc
-look in the commands.txt for further commands
+|plug1 = PLug()
+|plug1.command(on)
+|plug1.command(off)
+|plug1.command(info)
+|etc
 
 HAVE FUN
 
