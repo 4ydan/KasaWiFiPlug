@@ -32,9 +32,12 @@ def _decrypt(string):
 
 
 class Plug:
-    def __init__(self, ip="192.168.1.240", port=9999):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.connect((ip, port))
+    def __init__(self, ip="192.168.1.1", port=9999):
+        try:
+            self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.socket.connect((ip, port))
+        except socket.error:
+            quit("Could not connect to " + ip + ":" + str(port))
 
     def _send(self, json):
         self.socket.send(_encrypt(json))
@@ -57,6 +60,6 @@ class Plug:
 
 
 if __name__ == '__main__':
-    plug1 = Plug()
+    plug1 = Plug(ip="192.168.1.240")
     plug1.command("info")
 
