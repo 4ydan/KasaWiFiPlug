@@ -21,10 +21,10 @@ def _encrypt(string):
     return result
 
 
-def _decrypt(str):
+def _decrypt(string):
     key = 171
     result = b""
-    for i in bytes(str):
+    for i in bytes(string):
         a = key ^ i
         key = i
         result += bytes([a])
@@ -36,13 +36,18 @@ class Plug:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((ip, port))
 
-    def _send(self, arg):
-        self.socket.send(_encrypt(arg))
+    def _send(self, json):
+        self.socket.send(_encrypt(json))
 
-    def _receive(self):
-        ret = self.socket.recv(2048)
-        self.socket.close()
-        print(_decrypt(ret[4:]))
+    def _receive(self) -> bool:
+        try:
+            ret = self.socket.recv(2048)
+            self.socket.close()
+            msg = _decrypt(ret[4:])
+            print(msg)
+            return True
+        except BaseException:
+            return False
 
     def command(self, arg):
         arg = commands[arg]

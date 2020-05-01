@@ -10,6 +10,16 @@ Installing
 3. Import kasa to your project.
 3. Create an Instance of the Class Plug and start sending commands
 
+A Available Commands
+----------------
+.command(info),
+.command(on),
+.command(off),
+.command(time),
+.command(reboot),
+.command(energy), only available on Model HS110!
+
+
 A Simple Example
 ----------------
 
