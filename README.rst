@@ -5,22 +5,21 @@ Just follow the instructions below to setup your script.
 
 Installing
 ----------
-First of all make sure you have downloaded "KASA" on your mobile device and the plug is connected with your network.
-Write your device ip in "kasa.py", your default port should be 9999 and then you should be ready to go
-
-if you are missing permissions running kasa.py dont forget to:
-<chmod u+x main.py> 
+1. Connect your Device to your local Network with the "KASA" App
+2. Modify the IP Adress in kasa.py to your devices IP Adress
+3. Import kasa to your project.
+3. Create an Instance of the Class Plug and start sending commands
 
 A Simple Example
 ----------------
 
 .. code-block:: text
-
-    ./kasa.py [-c <cmd> || -j <json>]
-
-    ./mykasa.py -j {"system":{"set_relay_state":{"state":1}}}
-
-    ./mykasa.py -c 'on'
+plug1 = PLug()
+plug1.command(on)
+plug1.command(off)
+plug1.command(info)
+etc
+look in the commands.txt for further commands
 
 HAVE FUN
 

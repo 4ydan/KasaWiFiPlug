@@ -1,35 +1,17 @@
 #!/usr/bin/env python3
 import socket
-import argparse
 
-IP = "192.168.1.177"
-PORT = 9999
-
-# Predefined Commands
-command = {'info': '{"system":{"get_sysinfo":{}}}',
-           'on': '{"system":{"set_relay_state":{"state":1}}}',
-           'off': '{"system":{"set_relay_state":{"state":0}}}',
-           'time': '{"time":{"get_time":{}}}',
-           'reboot': '{"system":{"reboot":{"delay":1}}}',
-           'reset': '{"system":{"reset":{"delay":1}}}',
-           'energy': '{"emeter":{"get_realtime":{}}}'
-           }
-
-parser = argparse.ArgumentParser(description="TP-Link Wi-Fi Smart Plug Client v")
-group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument("-c", "--command", metavar="<command>",
-                   help="Preset command to send. Choices are: " + ", ".join(command), choices=command)
-group.add_argument("-j", "--json", metavar="<JSON string>", help="Full JSON string of command to send")
-args = parser.parse_args()
+commands = {'info': '{"system":{"get_sysinfo":{}}}',
+            'on': '{"system":{"set_relay_state":{"state":1}}}',
+            'off': '{"system":{"set_relay_state":{"state":0}}}',
+            'time': '{"time":{"get_time":{}}}',
+            'reboot': '{"system":{"reboot":{"delay":1}}}',
+            'reset': '{"system":{"reset":{"delay":1}}}',
+            'energy': '{"emeter":{"get_realtime":{}}}'
+            }
 
 
-if args.command is None:
-    command = args.json
-else:
-    command = command[args.command]
-
-
-def encrypt(string):
+def _encrypt(string):
     key = 171
     result = b"\0\0\0" + bytes([len(string)])
     for i in bytes(string.encode('latin-1')):
@@ -39,23 +21,37 @@ def encrypt(string):
     return result
 
 
-def decrypt(string):
+def _decrypt(str):
     key = 171
     result = b""
-    for i in bytes(string):
+    for i in bytes(str):
         a = key ^ i
         key = i
         result += bytes([a])
     return result.decode('latin-1')
 
 
-try:
-    socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket.connect((IP, PORT))
-    socket.send(encrypt(command))
-    receive = socket.recv(2048)
-    socket.close()
-    print(decrypt(receive[4:]))
+class Plug:
+    def __init__(self, ip="192.168.1.240", port=9999):
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.connect((ip, port))
 
-except socket.error:
-    quit("Could not connect to " + IP + ":" + str(PORT))
+    def _send(self, arg):
+        self.socket.send(_encrypt(arg))
+
+    def _receive(self):
+        ret = self.socket.recv(2048)
+        self.socket.close()
+        print(_decrypt(ret[4:]))
+
+    def command(self, arg):
+        arg = commands[arg]
+        self._send(arg)
+        self._receive()
+        self.socket.close()
+
+
+if __name__ == '__main__':
+    plug1 = Plug()
+    plug1.command("info")
+
