@@ -12,19 +12,19 @@ Installing
 
 Available Commands
 ----------------
-info, on, off, energy, time <br/>
-energy command is only available on Model HS110!
-
+info, on, off, energy, time
 
 A Simple Example
 ----------------
 
-.. code-block:: text
-plug1 = PLug() \
-plug1.command(on) <br/>
-plug1.command(off) <br/>
-plug1.command(info) <br/>
-etc
+.. code-block:: python
+
+    from kasa import Plug
+
+    plug1 = Plug()
+    plug1.command(info)
+    plug1.command(on)
+
 
 HAVE FUN
 
