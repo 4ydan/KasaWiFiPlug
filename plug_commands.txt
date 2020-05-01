@@ -1,7 +1,0 @@
-'info': '{"system":{"get_sysinfo":{}}}',
-'on': '{"system":{"set_relay_state":{"state":1}}}',
-'off': '{"system":{"set_relay_state":{"state":0}}}',
-'time': '{"time":{"get_time":{}}}',
-'reboot': '{"system":{"reboot":{"delay":1}}}',
-'reset': '{"system":{"reset":{"delay":1}}}',
-'energy': '{"emeter":{"get_realtime":{}}}'

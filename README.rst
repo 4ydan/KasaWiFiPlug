@@ -12,19 +12,19 @@ Installing
 
 Available Commands
 ----------------
-info, on, off, energy, time
-|energy command is only available on Model HS110!
+info, on, off, energy, time <br/>
+energy command is only available on Model HS110!
 
 
 A Simple Example
 ----------------
 
 .. code-block:: text
-|plug1 = PLug()
-|plug1.command(on)
-|plug1.command(off)
-|plug1.command(info)
-|etc
+plug1 = PLug() <br/>
+plug1.command(on) <br/>
+plug1.command(off) <br/>
+plug1.command(info) <br/>
+etc
 
 HAVE FUN
 
