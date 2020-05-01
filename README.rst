@@ -20,7 +20,7 @@ A Simple Example
 ----------------
 
 .. code-block:: text
-plug1 = PLug() <br/>
+plug1 = PLug() \
 plug1.command(on) <br/>
 plug1.command(off) <br/>
 plug1.command(info) <br/>
