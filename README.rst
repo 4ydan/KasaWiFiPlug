@@ -23,6 +23,8 @@ A Simple Example
     plug1 = Plug(ip="192.168.1.240")
     plug1.command(info)
     plug1.command(on)
+    time.sleep(5)
+    plug1.command(off)
 
 
 HAVE FUN
