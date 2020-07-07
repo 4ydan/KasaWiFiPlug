@@ -6,8 +6,8 @@ Just follow the instructions below to setup your script.
 How to start
 ----------
 1. Connect your Device to your local Network with the "KASA" App
-3. Import kasa to your project.
-4. Create an Instance of the Class Plug with parameter ip
+2. Import kasa to your project.
+3. Create an Instance of the Class Plug with parameter ip
 
 Available Commands
 ----------------
