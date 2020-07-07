@@ -7,7 +7,7 @@ How to start
 ----------
 1. Connect your Device to your local Network with the "KASA" App
 2. Import kasa to your project.
-3. Create an Instance of the Class Plug with parameter ip
+3. start
 
 Available Commands
 ----------------
