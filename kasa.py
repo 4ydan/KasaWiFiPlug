@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import socket
+import sys
 
 commands = {'info': '{"system":{"get_sysinfo":{}}}',
             'on': '{"system":{"set_relay_state":{"state":1}}}',
@@ -32,7 +33,7 @@ def _decrypt(string):
 
 
 class Plug:
-    def __init__(self, ip="192.168.1.1", port=9999):
+    def __init__(self, ip, port=9999):
         try:
             self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.socket.connect((ip, port))
@@ -60,6 +61,8 @@ class Plug:
 
 
 if __name__ == '__main__':
-    plug1 = Plug(ip="192.168.1.240")
-    plug1.command("info")
-
+    plug = Plug(ip="ENTER IP ADRESS")
+    try:
+        plug.command(sys.argv[1])
+    except KeyError as err:
+        print("This command is not supported")
