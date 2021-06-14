@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import socket
 import sys
+import logging
 
-commands = {'info': '{"system":{"get_sysinfo":{}}}',
+logging.basicConfig(stream=sys.stderr, level='INFO')
+
+COMMANDS = {'info': '{"system":{"get_sysinfo":{}}}',
             'on': '{"system":{"set_relay_state":{"state":1}}}',
             'off': '{"system":{"set_relay_state":{"state":0}}}',
             'time': '{"time":{"get_time":{}}}',
@@ -10,7 +13,6 @@ commands = {'info': '{"system":{"get_sysinfo":{}}}',
             'reset': '{"system":{"reset":{"delay":1}}}',
             'energy': '{"emeter":{"get_realtime":{}}}'
             }
-
 
 def _encrypt(string):
     key = 171
@@ -20,7 +22,6 @@ def _encrypt(string):
         key = a
         result += bytes([a])
     return result
-
 
 def _decrypt(string):
     key = 171
@@ -40,28 +41,24 @@ class Plug:
         except socket.error:
             quit("Could not connect to " + ip + ":" + str(port))
 
+    def command(self, arg):
+        try:
+            self._send(COMMANDS[arg])
+            self._receive()
+            self.socket.close()
+        except BaseException as err:
+            logging.err(err)
+
     def _send(self, json):
         self.socket.send(_encrypt(json))
-
+        
     def _receive(self) -> bool:
-        try:
-            ret = self.socket.recv(2048)
-            self.socket.close()
-            msg = _decrypt(ret[4:])
-            print(msg)
-            return True
-        except BaseException:
-            return False
-
-    def command(self, arg):
-        arg = commands[arg]
-        self._send(arg)
-        self._receive()
-        self.socket.close()
+        logging.debug(_decrypt(self.socket.recv(2048)[4:]))
+        logging.info("Success")
 
 
 if __name__ == '__main__':
-    plug = Plug(ip="ENTER IP ADRESS")
+    plug = Plug(ip="192.168.1.171")
     try:
         plug.command(sys.argv[1])
     except KeyError as err:
