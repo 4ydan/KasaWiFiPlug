@@ -2,16 +2,16 @@
 import socket
 import sys
 import logging
+import json
 
-logging.basicConfig(stream=sys.stderr, level='INFO')
+logging.basicConfig(stream=sys.stderr, level='DEBUG')
 
 COMMANDS = {'info': '{"system":{"get_sysinfo":{}}}',
             'on': '{"system":{"set_relay_state":{"state":1}}}',
             'off': '{"system":{"set_relay_state":{"state":0}}}',
             'time': '{"time":{"get_time":{}}}',
             'reboot': '{"system":{"reboot":{"delay":1}}}',
-            'reset': '{"system":{"reset":{"delay":1}}}',
-            'energy': '{"emeter":{"get_realtime":{}}}'
+            'reset': '{"system":{"reset":{"delay":1}}}'
             }
 
 def _encrypt(string):
@@ -47,14 +47,14 @@ class Plug:
             self._receive()
             self.socket.close()
         except BaseException as err:
-            logging.err(err)
+            logging.error(err)
 
     def _send(self, json):
         self.socket.send(_encrypt(json))
         
     def _receive(self) -> bool:
-        logging.debug(_decrypt(self.socket.recv(2048)[4:]))
-        logging.info("Success")
+        resp = json.loads(_decrypt(self.socket.recv(2048)[4:]))
+        logging.info(resp)
 
 
 if __name__ == '__main__':
